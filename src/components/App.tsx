@@ -23,7 +23,7 @@ class _App extends React.Component<Props, State> {
     prevProps: Readonly<Props>,
     prevState: Readonly<State>
   ): void {
-    if (!prevProps.todos.length && this.props.todos.length) {
+    if (this.props.todos.length > prevProps.todos.length) {
       this.setState({ loading: false });
     }
   }
@@ -51,7 +51,12 @@ class _App extends React.Component<Props, State> {
     const { loading } = this.state;
     return (
       <div>
-        <button onClick={this.onButtonClick}>Fetch</button>
+        <button
+          onClick={this.onButtonClick}
+          disabled={this.props.todos.length === 200}
+        >
+          Fetch
+        </button>
         {loading ? <h1>loading...</h1> : <ul>{this.renderList()}</ul>}
       </div>
     );
